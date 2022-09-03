@@ -17,6 +17,49 @@ namespace PSW.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.17");
 
+            modelBuilder.Entity("PSW.Model.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsTaken")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("PSW.Model.AppointmentHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppointmentComment")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("DoctorRating")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentHistory");
+                });
+
             modelBuilder.Entity("PSW.Model.Users.RegUser", b =>
                 {
                     b.Property<int>("Id")
@@ -30,10 +73,6 @@ namespace PSW.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("City")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
@@ -53,16 +92,14 @@ namespace PSW.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("RegUser");
+                    b.ToTable("RegUser");
                 });
 
             modelBuilder.Entity("PSW.Model.Users.Admin", b =>
                 {
                     b.HasBaseType("PSW.Model.Users.RegUser");
 
-                    b.HasDiscriminator().HasValue("Admin");
+                    b.ToTable("Admin");
                 });
 
             modelBuilder.Entity("PSW.Model.Users.Doctor", b =>
@@ -72,7 +109,7 @@ namespace PSW.Migrations
                     b.Property<int>("DoctorType")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Doctor");
+                    b.ToTable("Doctor");
                 });
 
             modelBuilder.Entity("PSW.Model.Users.Patient", b =>
@@ -94,7 +131,34 @@ namespace PSW.Migrations
                     b.Property<int>("MedicalRecordId")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Patient");
+                    b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("PSW.Model.Users.Admin", b =>
+                {
+                    b.HasOne("PSW.Model.Users.RegUser", null)
+                        .WithOne()
+                        .HasForeignKey("PSW.Model.Users.Admin", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PSW.Model.Users.Doctor", b =>
+                {
+                    b.HasOne("PSW.Model.Users.RegUser", null)
+                        .WithOne()
+                        .HasForeignKey("PSW.Model.Users.Doctor", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PSW.Model.Users.Patient", b =>
+                {
+                    b.HasOne("PSW.Model.Users.RegUser", null)
+                        .WithOne()
+                        .HasForeignKey("PSW.Model.Users.Patient", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

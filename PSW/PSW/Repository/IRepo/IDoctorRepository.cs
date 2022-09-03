@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PSW.Repository.IRepo
 {
-    interface IDoctorRepository : ICRUDRepository<Doctor, int>
+    public interface IDoctorRepository : ICRUDRepository<Doctor, int>
     {
         public Doctor FindByDoctorName(String name);
     }

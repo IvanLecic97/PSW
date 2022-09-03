@@ -11,6 +11,8 @@ using Microsoft.OpenApi.Models;
 using PSW.Model.MyDbContext;
 using PSW.Repository.IRepo;
 using PSW.Repository.Repo;
+using PSW.Service.AppointmentService;
+using PSW.Service.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +46,9 @@ namespace PSW
 
             services.AddScoped<IDoctorRepository, DoctorRepoBase>();
             services.AddScoped<IAppointmentRepository, AppointmentRepoBase>();
-           // services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IPatientService, PatientService>();
 
-           // services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
 
         }
 

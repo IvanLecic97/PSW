@@ -24,6 +24,12 @@ namespace PSW.Model.MyDbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RegUser>().ToTable("RegUser");
+            modelBuilder.Entity<Patient>().ToTable("Patient");
+            modelBuilder.Entity<Admin>().ToTable("Admin");
+            modelBuilder.Entity<Doctor>().ToTable("Doctor");
+            modelBuilder.Entity<Appointment>().ToTable("Appointment");
+            modelBuilder.Entity<AppointmentHistory>().ToTable("AppointmentHistory");    
         }
 
         public MyDbContext() { }
