@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PSW.Model.MyDbContext;
 using PSW.Repository.IRepo;
@@ -16,6 +18,7 @@ using PSW.Service.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PSW
@@ -33,6 +36,21 @@ namespace PSW
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+                    });
+
+            services.AddAuthorization();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,8 +65,11 @@ namespace PSW
             services.AddScoped<IDoctorRepository, DoctorRepoBase>();
             services.AddScoped<IAppointmentRepository, AppointmentRepoBase>();
             services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IDoctorService, DoctorService>();
 
             services.AddScoped<IAppointmentService, AppointmentService>();
+
+            services.AddCors();
 
         }
 
@@ -67,7 +88,9 @@ namespace PSW
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PSW v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 

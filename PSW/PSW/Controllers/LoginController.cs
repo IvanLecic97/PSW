@@ -23,12 +23,14 @@ namespace PSW.Controllers
     {
 		private readonly IConfiguration _config;
 		private readonly IPatientService patientService;
+		private readonly IDoctorService doctorService;
 
 
-		public LoginController(IConfiguration config, IPatientService patient)
+		public LoginController(IConfiguration config, IPatientService patient, IDoctorService doctorService)
 		{
 			this._config = config;
 			this.patientService = patient;
+			this.doctorService = doctorService;
 		}
 
 
@@ -43,28 +45,28 @@ namespace PSW.Controllers
 			RegUser user = AuthenticateUser(loginData);
 
 
-			//try
-			//	{
+			try
+				{
 			Patient authUser = (Patient)user;
 			Patient patient = patientService.FindByEmail(authUser.Email);
 			//isFirstAppointment = patient.IsFirstAppointment.ToString();
 			role = "Patient";
-			//}
-			//catch
-			//{
-			//user = (Doctor)user;
-			//Doctor doctor = doctorService.FindById(user.Id);
-			//	role = "Doctor";
-			//}
+			}
+			catch
+			{
+			user = (Doctor)user;
+			Doctor doctor = doctorService.FindById(user.Id);
+				role = "Doctor";
+			}
 
 
 			if (user != null)
 			{
-				var tokenString = GenerateJWTToken(authUser, role);
+				var tokenString = GenerateJWTToken(user, role);
 				response = Ok(new
 				{
 					token = tokenString,
-					email = authUser.Email,
+					email = user.Email,
 					role = role,
 					//isFirstAppointment = isFirstAppointment,
 				});
@@ -78,16 +80,19 @@ namespace PSW.Controllers
 		private RegUser AuthenticateUser(LoginDTO loginData)
 		{
 
+			Doctor Doctor = doctorService.LoginDoctor(loginData.Email, loginData.Password);
 
-
-
-			Patient patient = patientService.PatientLogin(loginData.Email, loginData.Password);
-			if (patient == null || patient.IsBlocked)
+			if (Doctor == null)
 			{
-				return null;
-			}
-			return patient;
 
+				Patient patient = patientService.PatientLogin(loginData.Email, loginData.Password);
+				if (patient == null || patient.IsBlocked)
+				{
+					return null;
+				}
+				return patient;
+			}
+			return Doctor;
 		}
 
 

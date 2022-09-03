@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PSW.DTO;
 using PSW.Model;
 using PSW.Service.AppointmentService;
@@ -27,6 +28,7 @@ namespace PSW.Controllers
 
         [Consumes("application/json")]
         [Produces("application/json")]
+        [Authorize(Roles = "Patient")]
         [HttpPost("findByPriority")]
         public IActionResult FindByPriority([FromBody] AppointmentDTO appointmentDTO)
         {

@@ -31,9 +31,7 @@ const AppointmentReservation = () => {
     axios
       .post(url, data, {
         headers: {
-          //Authorization: "Bearer " + localStorage.getItem("token"),
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {

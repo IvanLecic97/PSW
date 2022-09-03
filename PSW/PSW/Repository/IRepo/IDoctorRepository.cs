@@ -10,5 +10,7 @@ namespace PSW.Repository.IRepo
     public interface IDoctorRepository : ICRUDRepository<Doctor, int>
     {
         public Doctor FindByDoctorName(String name);
+
+        public Doctor FindByEmailAndPassword(String name, String password);
     }
 }
