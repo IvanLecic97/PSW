@@ -44,7 +44,7 @@ namespace PSW.Repository.Repo
 
         public IEnumerable<AppointmentHistory> FindAll()
         {
-            throw new NotImplementedException();
+            return myDbContext.AppointmentHistory.ToList();
         }
 
         public IEnumerable<AppointmentHistory> FindAllById(IEnumerable<int> ids)
@@ -59,7 +59,11 @@ namespace PSW.Repository.Repo
 
         public void Save(AppointmentHistory entity)
         {
-            throw new NotImplementedException();
+            if (FindById(entity.Id) == null)
+                myDbContext.AppointmentHistory.Add(entity);
+            else
+                myDbContext.AppointmentHistory.Update(entity);
+            myDbContext.SaveChanges();
         }
 
         public void SaveAll(IEnumerable<AppointmentHistory> entities)

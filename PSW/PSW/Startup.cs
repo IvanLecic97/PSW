@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using PSW.Model.MyDbContext;
 using PSW.Repository.IRepo;
 using PSW.Repository.Repo;
+using PSW.Service.AppointmentHistoryService;
 using PSW.Service.AppointmentService;
 using PSW.Service.ReferralService.cs;
 using PSW.Service.UserService;
@@ -66,12 +67,14 @@ namespace PSW
             services.AddScoped<IDoctorRepository, DoctorRepoBase>();
             services.AddScoped<IAppointmentRepository, AppointmentRepoBase>();
             services.AddScoped<IReferralRepository, ReferralRepoBase>();
+            services.AddScoped<IAppointmentHistoryRepository, AppointmentHistoryRepoBase>();
 
 
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IReferralService, ReferralService>();
+            services.AddScoped<IAppointmentHistoryService, AppointmentHistoryService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

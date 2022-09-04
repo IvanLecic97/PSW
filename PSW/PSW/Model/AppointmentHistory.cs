@@ -14,5 +14,12 @@ namespace PSW.Model
         public String AppointmentComment { get; set; }
 
         public double DoctorRating { get; set; }
+
+        public AppointmentHistory(int appointmentId, string appointmentComment, double doctorRating)
+        {
+            AppointmentId = appointmentId;
+            AppointmentComment = appointmentComment;
+            DoctorRating = doctorRating;
+        }
     }
 }

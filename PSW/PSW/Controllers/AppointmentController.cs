@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PSW.DTO;
 using PSW.Model;
 using PSW.Model.Users;
+using PSW.Service.AppointmentHistoryService;
 using PSW.Service.AppointmentService;
 using PSW.Service.ReferralService.cs;
 using PSW.Service.UserService;
@@ -23,12 +24,14 @@ namespace PSW.Controllers
         private readonly IAppointmentService appointmentService;
         private readonly IDoctorService doctorService;
         private readonly IReferralService referralService;
+        private readonly IAppointmentHistoryService appointmentHistoryService;
 
-        public AppointmentController(IAppointmentService aService, IDoctorService doctorService, IReferralService referralService)
+        public AppointmentController(IAppointmentService aService, IDoctorService doctorService, IReferralService referralService, IAppointmentHistoryService appointmentHistoryService)
         {
             this.appointmentService = aService;
             this.doctorService = doctorService;
             this.referralService = referralService;
+            this.appointmentHistoryService = appointmentHistoryService;
         }
 
 
@@ -149,6 +152,19 @@ namespace PSW.Controllers
             response = Ok(new
             {
                 list = referralService.MakeSpecialistAppointment(referralDTO)
+            });
+            return response;
+        }
+
+        [Authorize(Roles = "Patient")]
+        [HttpPost("newReview")]
+        public IActionResult NewReview([FromBody] AppointmentHistoryDTO Dto)
+        {
+            IActionResult response;
+
+            response = Ok(new
+            {
+                list = appointmentHistoryService.AddReview(Dto)
             });
             return response;
         }

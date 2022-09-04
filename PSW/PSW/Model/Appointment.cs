@@ -22,5 +22,7 @@ namespace PSW.Model
 
         public String DoctorType { get; set; }
 
+        public bool IsRewieved { get; set; }
+
     }
 }
