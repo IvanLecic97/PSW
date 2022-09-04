@@ -14,12 +14,14 @@ namespace PSW.Service.AppointmentService
         private readonly IAppointmentRepository appointmentRepo;
         private readonly IDoctorRepository doctorRepository;
         private readonly IPatientRepository patientRepository;
+        private readonly IReferralRepository referralRepository;
 
-        public AppointmentService(IAppointmentRepository repoBase, IDoctorRepository doctorRepository, IPatientRepository patientRepository)
+        public AppointmentService(IAppointmentRepository repoBase, IDoctorRepository doctorRepository, IPatientRepository patientRepository, IReferralRepository referralRepository)
         {
             this.appointmentRepo = repoBase;
             this.doctorRepository = doctorRepository;
             this.patientRepository = patientRepository;
+            this.referralRepository = referralRepository;
         }
 
         public List<Appointment> FindByDate(String DateLower, String DateUpper, List<Appointment> appointments)
@@ -129,6 +131,7 @@ namespace PSW.Service.AppointmentService
             Appointment a = appointmentRepo.FindById(appointmentDTO.appointmentId);
             Patient p = patientRepository.FindByEmail(appointmentDTO.patientUsername);
             a.IsTaken = true;
+            a.IsOver = false;
             a.PatientId = p.Id;
             appointmentRepo.UpdateAppointment(a);
 
@@ -159,11 +162,19 @@ namespace PSW.Service.AppointmentService
         {
             Appointment Appointment = appointmentRepo.FindById(AppointmentId);
             DateTime CurrentDate = DateTime.Now;
-            if (CurrentDate.AddHours(48) < Appointment.Date)
+            if (CurrentDate.AddHours(48) < Appointment.Date && Appointment.DoctorType.Equals("Family"))
             {
                 Appointment.IsTaken = false;
                 Appointment.PatientId = 0;
                 appointmentRepo.UpdateAppointment(Appointment);
+                return "Appointment canceled!!!";
+            }
+            else if(CurrentDate.AddHours(48) < Appointment.Date && Appointment.DoctorType.Equals("Specialist"))
+            {
+                Appointment.IsTaken = false;
+                Appointment.PatientId = 0;
+                appointmentRepo.UpdateAppointment(Appointment);
+                referralRepository.Delete(referralRepository.FindByAppointmentId(AppointmentId));
                 return "Appointment canceled!!!";
             }
             else
@@ -174,5 +185,31 @@ namespace PSW.Service.AppointmentService
 
             throw new NotImplementedException();
         }
+
+        List<Appointment> IAppointmentService.GetDoctorsNotOverAppointments(String email)
+        {
+            int id = doctorRepository.FindByEmail(email).Id;
+            return appointmentRepo.FindNotOverByDoctorId(id);
+        }
+
+        public List<Appointment> GetAllSpecialistAppointments()
+        {
+           /* IEnumerable<Appointment> List1 =  appointmentRepo.FindAll();
+            List<Appointment> RetList = new();
+
+            foreach(Appointment a in List1)
+            {
+                if(doctorRepository.FindById(a.DoctorId).DoctorType.Equals("Specialist"))
+                {
+                    RetList.Add(a);
+                }
+            } */
+
+            return appointmentRepo.GetAllSpecialistAppointments(); ;
+
+        }
+
+        
+
     }
 }

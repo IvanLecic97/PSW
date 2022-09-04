@@ -1,5 +1,6 @@
 ﻿using PSW.DTO;
 using PSW.Model;
+using PSW.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,14 @@ namespace PSW.Service.AppointmentService
         public List<Appointment> GetPatientsAppointments(String email);
 
         public String CancelAppointment(String email, int AppointmentId);
+
+        public List<Appointment> GetDoctorsNotOverAppointments(String email);
+
+        public List<Appointment> GetAllSpecialistAppointments();
+
+       
+
+        
+
     }
 }

@@ -13,6 +13,9 @@ import Login from "./main/login";
 import PatientHomepage from "./main/patient/patientHomepage";
 import AppointmentReservation from "./main/patient/appointmentReservation";
 import AppointmentHistory from "./main/patient/appointmentHistory";
+import DoctorHomepage from "./main/doctor/doctorHomepage";
+import DoctorsAppointments from "./main/doctor/doctorsAppointments";
+import SpecialistAppointments from "./main/doctor/specialistAppointments";
 
 function App() {
   const navigate = useNavigate();
@@ -46,6 +49,16 @@ function App() {
             element={<AppointmentReservation />}
           />
           <Route path="/appointmentHistory" element={<AppointmentHistory />} />
+
+          <Route path="/doctorHomepage" element={<DoctorHomepage />} />
+          <Route
+            path="/doctorsAppointments"
+            element={<DoctorsAppointments />}
+          />
+          <Route
+            path="/specialistAppointments"
+            element={<SpecialistAppointments />}
+          />
         </Routes>
       </div>
     </React.Fragment>

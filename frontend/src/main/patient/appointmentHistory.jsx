@@ -8,7 +8,11 @@ function AppointmentHistory() {
 
   const loadData = async () => {
     const url = `http://localhost:56210/appointment/findUsersAppointments/${email}`;
-    const data = await fetch(url);
+    const data = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     const data1 = await data.json();
     console.log(data1);
     setAppoinments(data1.list);
@@ -21,9 +25,15 @@ function AppointmentHistory() {
       AppointmentId: id,
     };
     const url = "http://localhost:56210/appointment/cancelAppointment";
-    axios.post(url, data).then((result) => {
-      window.alert(result.data);
-    });
+    axios
+      .post(url, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((result) => {
+        window.alert(result.data);
+      });
   }
 
   const table = (

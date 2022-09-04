@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using PSW.Model.MyDbContext;
 using PSW.Repository.IRepo;
 using PSW.Repository.Repo;
 using PSW.Service.AppointmentService;
+using PSW.Service.ReferralService.cs;
 using PSW.Service.UserService;
 using System;
 using System.Collections.Generic;
@@ -61,13 +63,17 @@ namespace PSW
             options.UseMySql(Configuration.GetConnectionString("MyDbContextConnectionString"), new MySqlServerVersion(new Version())).UseLazyLoadingProxies());
 
             services.AddScoped<IPatientRepository, PatientRepoBase>();
-
             services.AddScoped<IDoctorRepository, DoctorRepoBase>();
             services.AddScoped<IAppointmentRepository, AppointmentRepoBase>();
+            services.AddScoped<IReferralRepository, ReferralRepoBase>();
+
+
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IDoctorService, DoctorService>();
-
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IReferralService, ReferralService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddCors();
 

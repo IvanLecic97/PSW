@@ -60,7 +60,11 @@ const AppointmentReservation = () => {
       patientUsername: localStorage.getItem("email"),
     };
 
-    axios.post("http://localhost:56210/appointment/makeReservation", data);
+    axios.post("http://localhost:56210/appointment/makeReservation", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
   }
 
   useEffect(() => {

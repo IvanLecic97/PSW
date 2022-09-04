@@ -13,5 +13,9 @@ namespace PSW.Repository.IRepo
         public void UpdateAppointment(Appointment a);
 
         public List<Appointment> FindByPatientsId(int id);
+
+        public List<Appointment> FindNotOverByDoctorId(int id);
+
+        public List<Appointment> GetAllSpecialistAppointments();
     }
 }

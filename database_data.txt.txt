@@ -4,14 +4,14 @@ insert into psw_db.patient values (1, "A", "123456", false, false, "1");
 
 
 insert into psw_db.reguser values (2000, "savo@gmail.com", "123", "Savo", "Naokmet", "+381649038947", "Iza kluba 3", "Ljubinje", "1967-06-22 18:35:00");
-insert into psw_db.doctor values (2000, 0);
+insert into psw_db.doctor values (2000, "Family");
 insert into psw_db.reguser values (2001, "miko@gmail.com", "123", "Milorad", "Medan", "+381649058947", "Teparusa 3", "Ljubinje", "1982-06-22 18:35:00");
-insert into psw_db.doctor values (2001, 1);
+insert into psw_db.doctor values (2001, "Specialist");
 insert into psw_db.reguser values (2002, "nikola@gmail.com", "123", "Nikola", "Kosjerina", "+381649028947", "Bucanja 3", "Ljubinje", "1997-12-28 18:35:00");
-insert into psw_db.doctor values (2002, 0);
+insert into psw_db.doctor values (2002, "Family");
 
 
-insert into psw_db.appointment values(1, "2022-09-10 14:00:00", 2000, false, 0);
-insert into psw_db.appointment values(2, "2022-09-23 14:00:00", 2000, false, 0);
-insert into psw_db.appointment values(3, "2022-09-18 14:00:00", 2001, false, 0);
-insert into psw_db.appointment values(4, "2022-10-04 14:00:00", 2002, false, 0);
+insert into psw_db.appointment values(1, "2022-09-10 14:00:00", 2000, false, 0, "Family");
+insert into psw_db.appointment values(2, "2022-09-23 14:00:00", 2000, false, 0, "Family");
+insert into psw_db.appointment values(3, "2022-09-18 14:00:00", 2001, false, 0, "Specialist");
+insert into psw_db.appointment values(4, "2022-10-04 14:00:00", 2002, false, 0, "Family");

@@ -59,10 +59,12 @@ namespace PSW.Repository.Repo
             return dbContext.Doctors.SingleOrDefault((Doctor doctor) => doctor.Name.Equals(name));
         }
 
-        public Doctor FindByEmailAndPassword(string name, string password)
+        public Doctor FindByEmail(string name)
         {
-            return dbContext.Doctors.SingleOrDefault((Doctor doctor) => doctor.Email.Equals(name) && doctor.Password.Equals(password));
+            return dbContext.Doctors.SingleOrDefault((Doctor doctor) => doctor.Email.Equals(name));
         }
+
+
 
         // public Doctor GetBranchFromId(int id)
         // {
@@ -84,8 +86,9 @@ namespace PSW.Repository.Repo
             throw new NotImplementedException();
         }
 
-
-
-
+        public Doctor FindByEmailAndPassword(string name, string password)
+        {
+            return dbContext.Doctors.SingleOrDefault((Doctor doctor) => doctor.Email.Equals(name) && doctor.Password.Equals(password));
+        }
     }
 }

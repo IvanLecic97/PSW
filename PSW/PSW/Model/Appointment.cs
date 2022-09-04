@@ -17,5 +17,10 @@ namespace PSW.Model
         public bool IsTaken { get; set; }
 
         public int PatientId { get; set; }
+
+        public bool IsOver { get; set; }
+
+        public String DoctorType { get; set; }
+
     }
 }

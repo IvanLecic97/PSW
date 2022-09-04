@@ -29,6 +29,12 @@ namespace PSW.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("DoctorType")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsOver")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("IsTaken")
                         .HasColumnType("tinyint(1)");
 
@@ -58,6 +64,38 @@ namespace PSW.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppointmentHistory");
+                });
+
+            modelBuilder.Entity("PSW.Model.Referral", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("FamilyDoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecialistId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Referrals");
                 });
 
             modelBuilder.Entity("PSW.Model.Users.RegUser", b =>
@@ -106,8 +144,8 @@ namespace PSW.Migrations
                 {
                     b.HasBaseType("PSW.Model.Users.RegUser");
 
-                    b.Property<int>("DoctorType")
-                        .HasColumnType("int");
+                    b.Property<string>("DoctorType")
+                        .HasColumnType("longtext");
 
                     b.ToTable("Doctor");
                 });

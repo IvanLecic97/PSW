@@ -7,7 +7,7 @@ namespace PSW.Model.Users
 {
     public class Doctor : RegUser
     {
-        public DoctorType DoctorType { get; set; }
+        public String DoctorType { get; set; }
 
 
         public Doctor() { }

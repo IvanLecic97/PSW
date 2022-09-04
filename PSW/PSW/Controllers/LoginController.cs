@@ -110,7 +110,7 @@ namespace PSW.Controllers
 				/*                issuer: _config["Jwt: Issuer"],
 								audience: _config["Jwt: Audience"],*/
 				claims: claims,
-				expires: DateTime.Now.AddMinutes(30),
+				expires: DateTime.Now.AddMinutes(180),
 				signingCredentials: credentials
 			);
 			return new JwtSecurityTokenHandler().WriteToken(token);

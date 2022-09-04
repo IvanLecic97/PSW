@@ -36,5 +36,9 @@ namespace PSW.Controllers {
         return patientService.FindAll().ToList();
     }
 
+
+     
+
+
 }
 }

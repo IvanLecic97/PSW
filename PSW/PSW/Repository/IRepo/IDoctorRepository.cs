@@ -12,5 +12,7 @@ namespace PSW.Repository.IRepo
         public Doctor FindByDoctorName(String name);
 
         public Doctor FindByEmailAndPassword(String name, String password);
+
+        public Doctor FindByEmail(String email);
     }
 }

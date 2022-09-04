@@ -1,4 +1,6 @@
-﻿using PSW.Model;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PSW.Model;
 using PSW.Model.MyDbContext;
 using PSW.Repository.IRepo;
 using System;
@@ -84,5 +86,34 @@ namespace PSW.Repository.Repo
             myDbContext.Appointments.Update(a);
             myDbContext.SaveChanges();
         }
+
+        public List<Appointment> FindNotOverByDoctorId(int id)
+        {
+            var list1 = myDbContext.Appointments;
+            var list2 = list1.Where(e => e.IsOver == false && e.DoctorId.Equals(id));
+            // return myDbContext.Appointments.Where(e => e.IsOver == false && e.Id.Equals(id)).ToList();
+            List<Appointment> retList = new();
+            foreach(Appointment a in list2)
+            {
+                retList.Add(a);
+            }
+            return retList;
+           
+        }
+
+        public List<Appointment> GetAllSpecialistAppointments()
+        {
+            var list1 = myDbContext.Appointments;
+            var list2 = list1.Where(e => e.DoctorType.Equals("Specialist"));
+            List<Appointment> retList = new();
+            foreach(Appointment a in list2)
+            {
+                retList.Add(a);
+            }
+            return retList;
+        }
+
+
+
     }
 }
