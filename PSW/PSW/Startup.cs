@@ -16,6 +16,7 @@ using PSW.Repository.IRepo;
 using PSW.Repository.Repo;
 using PSW.Service.AppointmentHistoryService;
 using PSW.Service.AppointmentService;
+using PSW.Service.ClinicFeedbackService;
 using PSW.Service.ReferralService.cs;
 using PSW.Service.UserService;
 using System;
@@ -68,6 +69,7 @@ namespace PSW
             services.AddScoped<IAppointmentRepository, AppointmentRepoBase>();
             services.AddScoped<IReferralRepository, ReferralRepoBase>();
             services.AddScoped<IAppointmentHistoryRepository, AppointmentHistoryRepoBase>();
+            services.AddScoped<IClinicFeedbackRepository, ClinicFeedbackRepoBase>();
 
 
             services.AddScoped<IPatientService, PatientService>();
@@ -75,6 +77,7 @@ namespace PSW
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IReferralService, ReferralService>();
             services.AddScoped<IAppointmentHistoryService, AppointmentHistoryService>();
+            services.AddScoped<IClinicFeedbackService, ClinicFeedbackService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

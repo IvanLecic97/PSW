@@ -16,6 +16,7 @@ import AppointmentHistory from "./main/patient/appointmentHistory";
 import DoctorHomepage from "./main/doctor/doctorHomepage";
 import DoctorsAppointments from "./main/doctor/doctorsAppointments";
 import SpecialistAppointments from "./main/doctor/specialistAppointments";
+import ClinicFeedback from "./main/patient/clinicFeedback";
 
 function App() {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ function App() {
             path="/specialistAppointments"
             element={<SpecialistAppointments />}
           />
+          <Route path="/clinicFeedback" element={<ClinicFeedback />} />
         </Routes>
       </div>
     </React.Fragment>

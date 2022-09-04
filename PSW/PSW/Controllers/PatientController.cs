@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PSW.DTO;
 using PSW.Model.Users;
+using PSW.Service.ClinicFeedbackService;
 using PSW.Service.UserService;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,13 @@ namespace PSW.Controllers {
     public class PatientController : ControllerBase
     {
     private readonly IPatientService patientService;
+    private readonly IClinicFeedbackService clinicFeedbackService;
 
 
-    public PatientController(IPatientService patientService)
+    public PatientController(IPatientService patientService, IClinicFeedbackService clinicFeedbackService)
     {
         this.patientService = patientService;
+        this.clinicFeedbackService = clinicFeedbackService;
     }
 
 
@@ -35,6 +39,20 @@ namespace PSW.Controllers {
     {
         return patientService.FindAll().ToList();
     }
+
+    [Authorize(Roles = "Patient")]
+    [HttpPost("addClinicFeedback")]
+    public IActionResult AddClinicFeedback([FromBody] ClinicFeedbackDTO clinicFeedbackDTO)
+        {
+            IActionResult response;
+            response = Ok(new
+            {
+                feedback = clinicFeedbackService.AddNewFeedback(clinicFeedbackDTO)
+            }
+                );
+
+            return response;
+        }
 
 
      

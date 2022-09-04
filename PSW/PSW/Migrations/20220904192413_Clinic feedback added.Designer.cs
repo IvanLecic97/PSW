@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSW.Model.MyDbContext;
 
 namespace PSW.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220904192413_Clinic feedback added")]
+    partial class Clinicfeedbackadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +79,6 @@ namespace PSW.Migrations
 
                     b.Property<bool>("Anonymous")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("PatientUsername")
-                        .HasColumnType("longtext");
 
                     b.Property<double>("Rating")
                         .HasColumnType("double");

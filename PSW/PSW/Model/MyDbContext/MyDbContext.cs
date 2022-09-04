@@ -22,6 +22,8 @@ namespace PSW.Model.MyDbContext
 
         public DbSet<Referral> Referrals { get; set; }
 
+        public DbSet<ClinicFeedback> ClinicFeedbacks { get; set; }
+
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +35,7 @@ namespace PSW.Model.MyDbContext
             modelBuilder.Entity<Appointment>().ToTable("Appointment");
             modelBuilder.Entity<AppointmentHistory>().ToTable("AppointmentHistory");
             modelBuilder.Entity<Referral>().ToTable("Referrals");
+            modelBuilder.Entity<ClinicFeedback>().ToTable("ClinicFeedback");
         }
 
         public MyDbContext() { }
