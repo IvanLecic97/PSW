@@ -35,7 +35,17 @@ namespace PSW.Service.UserService
             return false;
         }
 
-
+        public string BlockPatient(PatientDTO patientDTO)
+        {
+            Patient p = patientRepository.FindByEmail(patientDTO.Email);
+            if (p != null)
+            {
+                p.IsBlocked = true;
+                p.IsBlockable = false;
+                patientRepository.Save(p);
+                return "Patient blocked!";
+            } else return "Patient does not exist";
+        }
 
         public List<Patient> FindAll()
         {
@@ -67,13 +77,34 @@ namespace PSW.Service.UserService
             return null;
         }
 
+        public string RemoveFromToxicList(PatientDTO patientDTO)
+        {
+            Patient p = patientRepository.FindByEmail(patientDTO.Email);
+            if (p != null)
+            {
+                p.IsBlockable = false;
+                patientRepository.Save(p);
+                return "Patient removed from toxic list";
+            }
+            else return "Patient does not exist!!";
+
+        }
+
         public void SavePatient(Patient patient)
         {
             patientRepository.Save(patient);
         }
 
-
-
-
+        public string UnblockPatient(PatientDTO patientDTO)
+        {
+            Patient p = patientRepository.FindByEmail(patientDTO.Email);
+            if (p != null)
+            {
+                p.IsBlocked = false;
+                patientRepository.Save(p);
+                return "Patient unblocked";
+            }
+            else return "Patient does not exist!";
+        }
     }
 }

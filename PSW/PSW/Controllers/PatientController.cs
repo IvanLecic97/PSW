@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PSW.DTO;
 using PSW.Model;
@@ -20,14 +21,18 @@ namespace PSW.Controllers {
     {
     private readonly IPatientService patientService;
     private readonly IClinicFeedbackService clinicFeedbackService;
-        private readonly ICanceledAppointmentsService canceledAppointmentsService;
+    private readonly ICanceledAppointmentsService canceledAppointmentsService;
+        private readonly IMapper mapper;
 
 
-    public PatientController(IPatientService patientService, IClinicFeedbackService clinicFeedbackService, ICanceledAppointmentsService canceledAppointmentsService)
+
+    public PatientController(IPatientService patientService, IClinicFeedbackService clinicFeedbackService, 
+        ICanceledAppointmentsService canceledAppointmentsService, IMapper mapper)
     {
         this.patientService = patientService;
         this.clinicFeedbackService = clinicFeedbackService;
         this.canceledAppointmentsService = canceledAppointmentsService;
+            this.mapper = mapper;
     }
 
 
@@ -67,19 +72,59 @@ namespace PSW.Controllers {
         }
 
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("allToxic")]
     public IActionResult GetAllToxicPatients()
         {
             IActionResult response;
+            List<PatientDTO> retList = new();
+            foreach(Patient p in patientService.FindAllBlockedOrBlockable()){
+                PatientDTO patient = mapper.Map<PatientDTO>(p);
+                retList.Add(patient);
+            } 
             response = Ok(new {
-                list = patientService.FindAllBlockedOrBlockable()
+                list = retList
             });
             return response;
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost("block")]
+        public IActionResult BlockPatient([FromBody] PatientDTO patientDTO)
+        {
+            IActionResult response = Ok(new
+            {
+                response = patientService.BlockPatient(patientDTO)
+            });
+            return response;
+            
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("unblock")]
+        public IActionResult UnBlockPatient([FromBody] PatientDTO patientDTO)
+        {
+            IActionResult response = Ok(new
+            {
+                response = patientService.UnblockPatient(patientDTO)
+            });
+            return response;
+
+        }
 
 
-     
+        [Authorize(Roles = "Admin")]
+        [HttpPost("removeFromToxic")]
+        public IActionResult RemoveFromToxic([FromBody] PatientDTO patientDTO)
+        {
+            IActionResult response = Ok(new
+            {
+                response = patientService.RemoveFromToxicList(patientDTO)
+            });
+            return response;
+
+        }
+
 
 
     }

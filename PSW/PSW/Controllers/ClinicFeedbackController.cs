@@ -49,6 +49,17 @@ namespace PSW.Controllers
         }
 
 
+        [AllowAnonymous]
+        [HttpGet("getAllApproved")]
+        public IActionResult GetAllApproved()
+        {
+            IActionResult response = Ok(new {
+                list = clinicFeedbackService.GetAllApprovedByAdmin()
+            });
+            return response;
+        }
+
+
 
 
     }

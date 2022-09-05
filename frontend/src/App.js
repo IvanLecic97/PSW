@@ -7,7 +7,8 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
 import RegistrationPage from "./main/registrationPage";
 import Login from "./main/login";
 import PatientHomepage from "./main/patient/patientHomepage";
@@ -19,14 +20,52 @@ import SpecialistAppointments from "./main/doctor/specialistAppointments";
 import ClinicFeedback from "./main/patient/clinicFeedback";
 import AllFeedbacks from "./main/admin/allFeedbacks";
 import AdminHomepage from "./main/admin/adminHomepage";
+import SeeToxicPatients from "./main/admin/seeToxicPatients";
 
 function App() {
   const navigate = useNavigate();
+  const [loadedData, setLoadedData] = useState([]);
 
   let onClickRegister = (event) => {
     event.preventDefault();
     navigate("/registerPatient");
   };
+
+  const loadData = async () => {
+    const url = "http://localhost:56210/feedback/getAllApproved";
+    try {
+      const data = await fetch(url);
+      const data1 = await data.json();
+      console.log(data1.list);
+      setLoadedData(data1.list);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  function seePatient(e) {
+    if (e.anonymous) {
+      return e.patientUsername;
+    } else return "Anonymous user";
+  }
+
+  const list = (
+    <div>
+      <label>Feedbacks about clinic</label> <br />
+      <br />
+      {loadedData.map((value) => (
+        <ul key={value.id}>
+          <li>{value.text}</li>
+          <li>Rate : {value.rating}</li>
+          <li>{seePatient(value)}</li>
+        </ul>
+      ))}
+    </div>
+  );
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -42,6 +81,7 @@ function App() {
             <button onClick={(event) => navigate("/login")}>Login</button>
           </div>
         </nav>
+        {loadedData && list}
         <Routes>
           <Route path="/registerPatient" element={<RegistrationPage />} />
           <Route path="/login" element={<Login />} />
@@ -66,6 +106,7 @@ function App() {
 
           <Route path="/allFeedbacks" element={<AllFeedbacks />} />
           <Route path="/adminHomepage" element={<AdminHomepage />} />
+          <Route path="/seeToxicPatients" element={<SeeToxicPatients />} />
         </Routes>
       </div>
     </React.Fragment>

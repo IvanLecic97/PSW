@@ -24,7 +24,6 @@ namespace PSW.DTO
         public bool IsBlocked { get; set; }
         public bool IsBlockable { get; set; }
 
-        public int MedicalRecordId { get; set; }
 
         public PatientDTO() { }
 

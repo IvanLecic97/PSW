@@ -212,9 +212,6 @@ namespace PSW.Migrations
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("MedicalRecordId")
-                        .HasColumnType("int");
-
                     b.ToTable("Patient");
                 });
 

@@ -51,6 +51,17 @@ namespace PSW.Service.ClinicFeedbackService
 
         }
 
+        public List<ClinicFeedback> GetAllApprovedByAdmin()
+        {
+            return clinicFeedbackRepository.FindAllApprovedByAdmin();
+        }
 
+        public List<ClinicFeedback> GetAll()
+        {
+            return (List<ClinicFeedback>)clinicFeedbackRepository.FindAll();
+        }
+
+      
+            
     }
 }

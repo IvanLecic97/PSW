@@ -12,5 +12,7 @@ namespace PSW.Repository.IRepo
 
         public ClinicFeedback FindByPatientEmail(string email);
 
+        public List<ClinicFeedback> FindAllApprovedByAdmin();
+
     }
 }

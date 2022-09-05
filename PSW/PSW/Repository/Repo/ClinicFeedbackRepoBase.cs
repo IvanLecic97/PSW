@@ -80,5 +80,16 @@ namespace PSW.Repository.Repo
         {
             return dbContext.ClinicFeedbacks.SingleOrDefault((ClinicFeedback feedback) => feedback.PatientUsername.Equals(email) );
         }
+
+        public List<ClinicFeedback> FindAllApprovedByAdmin()
+        {
+            IEnumerable<ClinicFeedback> list1 = FindAll().Where(e => e.AdminApproval == true);
+            List<ClinicFeedback> retList = new();
+            foreach(ClinicFeedback c in list1)
+            {
+                retList.Add(c);
+            }
+            return retList;
+        }
     }
 }

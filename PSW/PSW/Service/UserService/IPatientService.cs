@@ -21,5 +21,11 @@ namespace PSW.Service.UserService
         public List<Patient> FindAll();
 
         public List<Patient> FindAllBlockedOrBlockable();
+
+        public String UnblockPatient(PatientDTO patientDTO);
+
+        public String BlockPatient(PatientDTO patientDTO);
+
+        public String RemoveFromToxicList(PatientDTO patientDTO);
     }
 }

@@ -58,3 +58,9 @@ C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\runtimes\win\lib\
 C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\ika_l\Desktop\KONACNOPSW\PSW\PSW\PSW\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll

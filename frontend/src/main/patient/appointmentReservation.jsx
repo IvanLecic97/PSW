@@ -69,7 +69,7 @@ const AppointmentReservation = () => {
 
   useEffect(() => {
     displayAppointments();
-  }, []);
+  }, [loadedAppointmentsList]);
 
   return (
     <div>

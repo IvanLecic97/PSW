@@ -21,7 +21,6 @@ namespace PSW.Converter
             p.Id = PatientDTO.Id;
             p.IsBlockable = PatientDTO.IsBlockable;
             p.IsBlocked = PatientDTO.IsBlocked;
-            p.MedicalRecordId = PatientDTO.MedicalRecordId;
             p.Name = PatientDTO.Name;
             p.Password = PatientDTO.Password;
             p.Phone = PatientDTO.Phone;
@@ -42,7 +41,6 @@ namespace PSW.Converter
             p.Id = PatientDTO.Id;
             p.IsBlockable = PatientDTO.IsBlockable;
             p.IsBlocked = PatientDTO.IsBlocked;
-            p.MedicalRecordId = PatientDTO.MedicalRecordId;
             p.Name = PatientDTO.Name;
             p.Password = PatientDTO.Password;
             p.Phone = PatientDTO.Phone;
