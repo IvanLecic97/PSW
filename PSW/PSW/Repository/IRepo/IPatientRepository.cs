@@ -13,6 +13,6 @@ namespace PSW.Repository.IRepo
 
         Patient FindByEmail(string email);
 
-        IEnumerable<Patient> FindBlockedAndBlockablePatients();
+        List<Patient> FindAllBlockableAndBlocked();
     }
 }

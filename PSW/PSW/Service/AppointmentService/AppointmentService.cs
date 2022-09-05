@@ -2,6 +2,7 @@
 using PSW.Model;
 using PSW.Model.Users;
 using PSW.Repository.IRepo;
+using PSW.Service.CanceledAppointmentsService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,16 @@ namespace PSW.Service.AppointmentService
         private readonly IDoctorRepository doctorRepository;
         private readonly IPatientRepository patientRepository;
         private readonly IReferralRepository referralRepository;
+        private readonly ICanceledAppointmentsService canceledAppointmentsService;
 
-        public AppointmentService(IAppointmentRepository repoBase, IDoctorRepository doctorRepository, IPatientRepository patientRepository, IReferralRepository referralRepository)
+        public AppointmentService(IAppointmentRepository repoBase, IDoctorRepository doctorRepository,
+            IPatientRepository patientRepository, IReferralRepository referralRepository, ICanceledAppointmentsService canceledAppointmentsService)
         {
             this.appointmentRepo = repoBase;
             this.doctorRepository = doctorRepository;
             this.patientRepository = patientRepository;
             this.referralRepository = referralRepository;
+            this.canceledAppointmentsService = canceledAppointmentsService;
         }
 
         public List<Appointment> FindByDate(String DateLower, String DateUpper, List<Appointment> appointments)
@@ -165,6 +169,7 @@ namespace PSW.Service.AppointmentService
             if (CurrentDate.AddHours(48) < Appointment.Date && Appointment.DoctorType.Equals("Family"))
             {
                 Appointment.IsTaken = false;
+                canceledAppointmentsService.AddNewCanceledAppointment(Appointment.PatientId, DateTime.Now);
                 Appointment.PatientId = 0;
                 appointmentRepo.UpdateAppointment(Appointment);
                 return "Appointment canceled!!!";
@@ -172,6 +177,7 @@ namespace PSW.Service.AppointmentService
             else if(CurrentDate.AddHours(48) < Appointment.Date && Appointment.DoctorType.Equals("Specialist"))
             {
                 Appointment.IsTaken = false;
+                canceledAppointmentsService.AddNewCanceledAppointment(Appointment.PatientId, DateTime.Now);
                 Appointment.PatientId = 0;
                 appointmentRepo.UpdateAppointment(Appointment);
                 referralRepository.Delete(referralRepository.FindByAppointmentId(AppointmentId));
@@ -182,8 +188,6 @@ namespace PSW.Service.AppointmentService
                 return "You can't cancel an apointment which is in less than 48 hours!!!";
             }
 
-
-            throw new NotImplementedException();
         }
 
         List<Appointment> IAppointmentService.GetDoctorsNotOverAppointments(String email)

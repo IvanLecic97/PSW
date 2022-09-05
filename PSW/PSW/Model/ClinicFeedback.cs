@@ -17,21 +17,25 @@ namespace PSW.Model
 
         public String PatientUsername { get; set; }
 
-        public ClinicFeedback(string text, double rating, bool anonymous, string patientUsername)
+        public bool AdminApproval { get; set; }
+
+        public ClinicFeedback(string text, double rating, bool anonymous, string patientUsername, bool adminApproval)
         {
             Text = text;
             Rating = rating;
             Anonymous = anonymous;
             PatientUsername =  patientUsername;
+            AdminApproval = adminApproval;
         }
 
-        public ClinicFeedback(int id, string text, double rating, bool anonymous, string patientUsername)
+        public ClinicFeedback(int id, string text, double rating, bool anonymous, string patientUsername, bool adminApproval)
         {
             Id = id;
             Text = text;
             Rating = rating;
             Anonymous = anonymous;
             PatientUsername = patientUsername;
+            AdminApproval = adminApproval;
         }
 
         public ClinicFeedback() { }

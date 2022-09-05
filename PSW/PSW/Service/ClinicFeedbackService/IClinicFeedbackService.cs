@@ -1,4 +1,5 @@
 ﻿using PSW.DTO;
+using PSW.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,10 @@ namespace PSW.Service.ClinicFeedbackService
     public interface IClinicFeedbackService
     {
         public ClinicFeedbackDTO AddNewFeedback(ClinicFeedbackDTO clinicFeedbackDTO);
+
+        public IEnumerable<ClinicFeedback> GetAllFeedbacks();
+
+        public String ChangeApproval(ClinicFeedbackDTO clinicFeedbackDTO);
+
     }
 }

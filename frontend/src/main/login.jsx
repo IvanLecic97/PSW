@@ -23,13 +23,15 @@ const Login = () => {
       console.log(response.data.email);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("email", response.data.email);
-      localStorage.setItem("role", response.data.roles);
+      localStorage.setItem("role", response.data.role);
+      if (localStorage.getItem("role") === "Patient") {
+        navigate("/patientHomepage");
+      } else if (localStorage.getItem("role") === "Doctor") {
+        navigate("/doctorHomepage");
+      } else if (localStorage.getItem("role") === "Admin") {
+        navigate("/adminHomepage");
+      }
     });
-    if (localStorage.getItem("role") == "Patient") {
-      navigate("/patientHomepage");
-    } else if (localStorage.getItem("role") == "Doctor") {
-      navigate("/doctorHomepage");
-    }
   };
 
   return (

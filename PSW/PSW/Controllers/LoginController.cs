@@ -24,13 +24,14 @@ namespace PSW.Controllers
 		private readonly IConfiguration _config;
 		private readonly IPatientService patientService;
 		private readonly IDoctorService doctorService;
+		private readonly IAdminService adminService;
 
-
-		public LoginController(IConfiguration config, IPatientService patient, IDoctorService doctorService)
+		public LoginController(IConfiguration config, IPatientService patient, IDoctorService doctorService, IAdminService adminService)
 		{
 			this._config = config;
 			this.patientService = patient;
 			this.doctorService = doctorService;
+			this.adminService = adminService;
 		}
 
 
@@ -54,9 +55,16 @@ namespace PSW.Controllers
 			}
 			catch
 			{
-			user = (Doctor)user;
-			Doctor doctor = doctorService.FindById(user.Id);
-				role = "Doctor";
+				try
+				{
+					user = (Doctor)user;
+					Doctor doctor = doctorService.FindById(user.Id);
+					role = "Doctor";
+				} catch
+                {
+					user = (Admin)user;
+					role = "Admin";
+                }
 			}
 
 
@@ -88,7 +96,12 @@ namespace PSW.Controllers
 				Patient patient = patientService.PatientLogin(loginData.Email, loginData.Password);
 				if (patient == null || patient.IsBlocked)
 				{
-					return null;
+					Admin Admin = adminService.LoginAdmin(loginData.Email, loginData.Password);
+					if(Admin == null)
+                    {
+						return null;
+					}
+					return Admin;
 				}
 				return patient;
 			}

@@ -19,5 +19,7 @@ namespace PSW.Service.UserService
         public bool AddPatient(PatientDTO patientDTOForRegistration);
 
         public List<Patient> FindAll();
+
+        public List<Patient> FindAllBlockedOrBlockable();
     }
 }

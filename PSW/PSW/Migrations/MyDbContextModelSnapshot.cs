@@ -69,11 +69,31 @@ namespace PSW.Migrations
                     b.ToTable("AppointmentHistory");
                 });
 
+            modelBuilder.Entity("PSW.Model.CanceledAppointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CancellationDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CanceledAppointments");
+                });
+
             modelBuilder.Entity("PSW.Model.ClinicFeedback", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("AdminApproval")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("Anonymous")
                         .HasColumnType("tinyint(1)");

@@ -17,6 +17,8 @@ import DoctorHomepage from "./main/doctor/doctorHomepage";
 import DoctorsAppointments from "./main/doctor/doctorsAppointments";
 import SpecialistAppointments from "./main/doctor/specialistAppointments";
 import ClinicFeedback from "./main/patient/clinicFeedback";
+import AllFeedbacks from "./main/admin/allFeedbacks";
+import AdminHomepage from "./main/admin/adminHomepage";
 
 function App() {
   const navigate = useNavigate();
@@ -61,6 +63,9 @@ function App() {
             element={<SpecialistAppointments />}
           />
           <Route path="/clinicFeedback" element={<ClinicFeedback />} />
+
+          <Route path="/allFeedbacks" element={<AllFeedbacks />} />
+          <Route path="/adminHomepage" element={<AdminHomepage />} />
         </Routes>
       </div>
     </React.Fragment>

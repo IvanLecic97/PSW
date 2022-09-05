@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PSW.DTO;
+using PSW.Model;
 using PSW.Model.Users;
+using PSW.Service.CanceledAppointmentsService;
 using PSW.Service.ClinicFeedbackService;
 using PSW.Service.UserService;
 using System;
@@ -18,12 +20,14 @@ namespace PSW.Controllers {
     {
     private readonly IPatientService patientService;
     private readonly IClinicFeedbackService clinicFeedbackService;
+        private readonly ICanceledAppointmentsService canceledAppointmentsService;
 
 
-    public PatientController(IPatientService patientService, IClinicFeedbackService clinicFeedbackService)
+    public PatientController(IPatientService patientService, IClinicFeedbackService clinicFeedbackService, ICanceledAppointmentsService canceledAppointmentsService)
     {
         this.patientService = patientService;
         this.clinicFeedbackService = clinicFeedbackService;
+        this.canceledAppointmentsService = canceledAppointmentsService;
     }
 
 
@@ -43,7 +47,7 @@ namespace PSW.Controllers {
     [Authorize(Roles = "Patient")]
     [HttpPost("addClinicFeedback")]
     public IActionResult AddClinicFeedback([FromBody] ClinicFeedbackDTO clinicFeedbackDTO)
-        {
+    {
             IActionResult response;
             response = Ok(new
             {
@@ -52,11 +56,31 @@ namespace PSW.Controllers {
                 );
 
             return response;
+    }
+
+    
+    [AllowAnonymous]
+    [HttpGet("getCanceled")]
+    public List<CanceledAppointment> GetCanceledAppointments()
+        {
+            return canceledAppointmentsService.GetCanceledAppointments();
         }
+
+
+    [HttpGet("allToxic")]
+    public IActionResult GetAllToxicPatients()
+        {
+            IActionResult response;
+            response = Ok(new {
+                list = patientService.FindAllBlockedOrBlockable()
+            });
+            return response;
+        }
+
 
 
      
 
 
-}
+    }
 }

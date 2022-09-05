@@ -47,7 +47,7 @@ namespace PSW.Repository.Repo
 
         public IEnumerable<ClinicFeedback> FindAll()
         {
-            throw new NotImplementedException();
+            return dbContext.ClinicFeedbacks.ToList();
         }
 
         public IEnumerable<ClinicFeedback> FindAllById(IEnumerable<int> ids)

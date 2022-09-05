@@ -13,7 +13,6 @@ namespace PSW.Model.Users
         public bool IsBlocked { get; set; }
         public bool IsBlockable { get; set; }
 
-        public int MedicalRecordId { get; set; }
 
 
         public Patient()

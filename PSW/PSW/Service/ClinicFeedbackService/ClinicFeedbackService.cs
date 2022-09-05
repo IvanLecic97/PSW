@@ -22,7 +22,7 @@ namespace PSW.Service.ClinicFeedbackService
 
             if (clinicFeedbackRepository.FindByPatientEmail(clinicFeedbackDTO.PatientUsername) == null)
             {
-                ClinicFeedback ClinicFeedback = new ClinicFeedback(clinicFeedbackDTO.Text, clinicFeedbackDTO.Rating, clinicFeedbackDTO.Anonymous, clinicFeedbackDTO.PatientUsername);
+                ClinicFeedback ClinicFeedback = new ClinicFeedback(clinicFeedbackDTO.Text, clinicFeedbackDTO.Rating, clinicFeedbackDTO.Anonymous, clinicFeedbackDTO.PatientUsername, false);
 
                 clinicFeedbackRepository.Save(ClinicFeedback);
 
@@ -32,5 +32,25 @@ namespace PSW.Service.ClinicFeedbackService
 
             else return null; 
         }
+
+        public IEnumerable<ClinicFeedback> GetAllFeedbacks()
+        {
+            return clinicFeedbackRepository.FindAll();
+        }
+
+        public String ChangeApproval(ClinicFeedbackDTO clinicFeedbackDTO)
+        {
+            ClinicFeedback Feedback = clinicFeedbackRepository.FindById(clinicFeedbackDTO.Id);
+            if (Feedback != null)
+            {
+                Feedback.AdminApproval = !Feedback.AdminApproval;
+                clinicFeedbackRepository.Save(Feedback);
+                return "Approval changed";
+            }
+            else return "Feedback does not exist";
+
+        }
+
+
     }
 }

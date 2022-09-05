@@ -42,6 +42,11 @@ namespace PSW.Service.UserService
             return (List<Patient>)patientRepository.FindAll();
         }
 
+        public List<Patient> FindAllBlockedOrBlockable()
+        {
+            return patientRepository.FindAllBlockableAndBlocked();
+        }
+
         public Patient FindByEmail(string email)
         {
             return patientRepository.FindByEmail(email);
@@ -66,5 +71,9 @@ namespace PSW.Service.UserService
         {
             patientRepository.Save(patient);
         }
+
+
+
+
     }
 }

@@ -48,6 +48,17 @@ namespace PSW.Repository.Repo
             return dbContext.Patients.ToList();
         }
 
+        public List<Patient> FindAllBlockableAndBlocked()
+        {
+            IEnumerable<Patient> list1 = FindAll().Where(e => e.IsBlockable == true || e.IsBlocked == true);
+            List<Patient> retLIst = new();
+            foreach(Patient p in list1)
+            {
+                retLIst.Add(p);
+            }
+            return retLIst;
+        }
+
         public IEnumerable<Patient> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();

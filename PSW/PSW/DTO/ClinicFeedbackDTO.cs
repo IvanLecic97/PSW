@@ -17,6 +17,8 @@ namespace PSW.DTO
 
         public String PatientUsername { get; set; }
 
+        public bool AdminApproval { get; set; }
+
         public ClinicFeedbackDTO(string text, double rating, bool anonymous, string patientUsername)
         {
             Text = text;
