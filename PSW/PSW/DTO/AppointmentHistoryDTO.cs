@@ -15,6 +15,8 @@ namespace PSW.DTO
 
         public int AppointmentId { get; set; }
 
+
+        public AppointmentHistoryDTO() { }
         public AppointmentHistoryDTO(string appointmentComment, double doctorGrade, int appointmentId)
         {
             AppointmentComment = appointmentComment;
