@@ -24,9 +24,10 @@ function DoctorsAppointments() {
     }
   };
 
-  function onReferralClick(event, id) {
+  function onReferralClick(event, id, appointmentId) {
     //event.preventDefault();
     localStorage.setItem("patientId", id);
+    localStorage.setItem("appointmentId", appointmentId);
     window.open("/specialistAppointments");
   }
 
@@ -50,7 +51,9 @@ function DoctorsAppointments() {
                 <th>{value.date}</th>
                 <th>
                   <button
-                    onClick={(event) => onReferralClick(event, value.patientId)}
+                    onClick={(event) =>
+                      onReferralClick(event, value.patientId, value.id)
+                    }
                   >
                     Referral
                   </button>

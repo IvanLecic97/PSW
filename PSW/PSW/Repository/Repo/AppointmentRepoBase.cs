@@ -72,7 +72,13 @@ namespace PSW.Repository.Repo
 
         public void Save(Appointment entity)
         {
-            throw new NotImplementedException();
+            Appointment Appointment = FindById(entity.Id);
+            if (Appointment == null)
+            {
+                myDbContext.Appointments.Add(Appointment);
+            }
+            else myDbContext.Appointments.Update(Appointment);
+            myDbContext.SaveChanges();
         }
 
         public void SaveAll(IEnumerable<Appointment> entities)
@@ -104,7 +110,7 @@ namespace PSW.Repository.Repo
         public List<Appointment> GetAllSpecialistAppointments()
         {
             var list1 = myDbContext.Appointments;
-            var list2 = list1.Where(e => e.DoctorType.Equals("Specialist"));
+            var list2 = list1.Where(e => e.DoctorType.Equals("Specialist")).Where(b => b.IsTaken == false);
             List<Appointment> retList = new();
             foreach(Appointment a in list2)
             {

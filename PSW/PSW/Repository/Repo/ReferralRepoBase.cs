@@ -48,7 +48,7 @@ namespace PSW.Repository.Repo
 
         public Referral FindByAppointmentId(int id)
         {
-            return dbContext.Referrals.SingleOrDefault((Referral referral) => referral.Id.Equals(id));
+            return dbContext.Referrals.SingleOrDefault((Referral referral) => referral.AppointmentId == id);
 
         }
 

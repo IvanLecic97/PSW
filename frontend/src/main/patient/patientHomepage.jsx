@@ -10,6 +10,12 @@ const PatientHomepage = () => {
         <button onClick={(event) => navigate("/appointmentReservation")}>
           Appointment reservation
         </button>
+        <button onClick={() => navigate("/appointmentHistory")}>
+          Appointment history
+        </button>
+        <button onClick={() => navigate("/clinicFeedback")}>
+          Clinic feedback
+        </button>
       </nav>
     </div>
   );

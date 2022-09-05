@@ -21,50 +21,35 @@ import ClinicFeedback from "./main/patient/clinicFeedback";
 import AllFeedbacks from "./main/admin/allFeedbacks";
 import AdminHomepage from "./main/admin/adminHomepage";
 import SeeToxicPatients from "./main/admin/seeToxicPatients";
+import Homepage from "./main/homepage";
 
 function App() {
   const navigate = useNavigate();
-  const [loadedData, setLoadedData] = useState([]);
+  const [patientButton, setPatientButton] = useState(true);
 
   let onClickRegister = (event) => {
     event.preventDefault();
     navigate("/registerPatient");
   };
 
-  const loadData = async () => {
-    const url = "http://localhost:56210/feedback/getAllApproved";
-    try {
-      const data = await fetch(url);
-      const data1 = await data.json();
-      console.log(data1.list);
-      setLoadedData(data1.list);
-    } catch (error) {
-      console.log("error", error);
-    }
+  const onClickLogout = (event) => {
+    event.preventDefault();
+    localStorage.clear("token");
+    localStorage.clear("role");
+    localStorage.clear("email");
+    navigate("/homepage");
   };
 
-  function seePatient(e) {
-    if (e.anonymous) {
-      return e.patientUsername;
-    } else return "Anonymous user";
-  }
-
-  const list = (
-    <div>
-      <label>Feedbacks about clinic</label> <br />
-      <br />
-      {loadedData.map((value) => (
-        <ul key={value.id}>
-          <li>{value.text}</li>
-          <li>Rate : {value.rating}</li>
-          <li>{seePatient(value)}</li>
-        </ul>
-      ))}
-    </div>
-  );
+  const checkPatientButton = () => {
+    //event.preventDefault();
+    const item = localStorage.getItem("role");
+    if (item == "Patient") {
+      setPatientButton(false);
+    } else setPatientButton(true);
+  };
 
   useEffect(() => {
-    loadData();
+    checkPatientButton();
   }, []);
 
   return (
@@ -72,7 +57,13 @@ function App() {
       <div className="App">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
-            <button>Homepage</button>
+            <button
+              onClick={() => {
+                navigate("/homepage");
+              }}
+            >
+              Homepage
+            </button>
           </div>
           <div className="container-fluid">
             <button onClick={onClickRegister}>Register</button>
@@ -80,9 +71,21 @@ function App() {
           <div className="container-fluid">
             <button onClick={(event) => navigate("/login")}>Login</button>
           </div>
+          <div className="container-fluid">
+            <button onClick={(event) => onClickLogout(event)}>Logout</button>
+          </div>
+          <div>
+            <button
+              disabled={patientButton}
+              onClick={() => navigate("/patientHomepage")}
+            >
+              Patient homepage
+            </button>
+          </div>
         </nav>
-        {loadedData && list}
+
         <Routes>
+          <Route path="/homepage" element={<Homepage />} />
           <Route path="/registerPatient" element={<RegistrationPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/patientHomepage" element={<PatientHomepage />} />

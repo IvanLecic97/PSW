@@ -142,7 +142,7 @@ function AppointmentHistory() {
 
   useEffect(() => {
     loadData();
-  }, [appointments]);
+  }, []);
 
   return (
     <div>

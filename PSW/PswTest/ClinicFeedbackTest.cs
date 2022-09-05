@@ -55,9 +55,6 @@ namespace PswTest
         }
 
 
-        
-
-
 
         private static IClinicFeedbackRepository CreateMockClinickRepository()
         {

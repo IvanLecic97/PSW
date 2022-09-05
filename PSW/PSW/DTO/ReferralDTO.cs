@@ -21,6 +21,8 @@ namespace PSW.DTO
 
         public int AppointmentId { get; set; }
 
+        public int FamilyDoctorAppointmentId { get; set; }
+
         public String Text { get; set; }
 
         public String FamilyDoctorEmail { get; set; }

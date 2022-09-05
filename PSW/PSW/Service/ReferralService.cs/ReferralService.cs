@@ -59,7 +59,7 @@ namespace PSW.Service.ReferralService.cs
                 Referral referral = new Referral(referralDTO.Text, doctorRepository.FindByEmail(referralDTO.FamilyDoctorEmail).Id, referralDTO.SpecialistId, referralDTO.PatientId,
                     referralDTO.Date, referralDTO.AppointmentId, name);
 
-                Appointment appointment = appointmentRepository.FindById(referralDTO.AppointmentId);
+                Appointment appointment = appointmentRepository.FindById(referralDTO.FamilyDoctorAppointmentId);
                 appointment.IsOver = true;
 
                 appointmentRepository.Save(appointment);

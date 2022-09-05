@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 function SpecialistAppointments() {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
+  const appId = localStorage.getItem("appointmentId");
   const [loadedData, setData] = useState([]);
   const [text, setText] = useState("");
 
@@ -40,10 +41,11 @@ function SpecialistAppointments() {
       patientId: localStorage.getItem("patientId"),
       date: entity.date,
       appointmentId: entity.id,
+      familyDoctorAppointmentId: appId,
     };
     axios
       .post(url, data, { headers: { Authorization: `Bearer ${token}` } })
-      .then((res) => window.alert(res.data));
+      .then((res) => window.alert(res.data.list));
   }
 
   useEffect(() => {

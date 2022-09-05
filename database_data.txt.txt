@@ -1,5 +1,7 @@
-insert into psw_db.reguser values (1, "ika619@gmail.com", "123", "Ivan", "Lecic", "+381640038947", "Vojvodjanska 3", "Novi Sad", "1997-06-21 18:35:00" );
-insert into psw_db.patient values (1, "A", "123456", false, false, "1");
+insert into psw_db.reguser values (1, "ika619@gmail.com", "123", "Ivan", "Lecic", "+381640038947", "Vojvodjanska 3", "Novi Sad", "1997-06-21 18:35:00");
+insert into psw_db.patient values (1, "A", "123456", false, false);
+nto psw_db.reguser values (2, "miljana@gmail.com", "123", "Miljana", "Kulic", "+3816400338947", "Zadhuga 6", "Simanovci", "1998-06-21 18:35:00");
+insert into psw_db.patient values (2, "A", "1234s56", false, false);
 
 
 
@@ -9,12 +11,28 @@ insert into psw_db.reguser values (2001, "miko@gmail.com", "123", "Milorad", "Me
 insert into psw_db.doctor values (2001, "Specialist");
 insert into psw_db.reguser values (2002, "nikola@gmail.com", "123", "Nikola", "Kosjerina", "+381649028947", "Bucanja 3", "Ljubinje", "1997-12-28 18:35:00");
 insert into psw_db.doctor values (2002, "Family");
+insert into psw_db.reguser values (2003, "suzana@gmail.com", "123", "Suzana", "Milutinovic", "+381649028947", "Vinogradi 3", "Ljubinje", "1987-12-28 18:35:00");
+insert into psw_db.doctor values (2003, "Specialist");
 
 insert into psw_db.reguser values (5000, "mladenko@gmail.com", "123", "Mladenko", "Novokmet", "1234567890", "Dubocica bb", "Dubocica", "1989-09-11 18:29:00");
 insert into psw_db.admin values(5000);
 
 
-insert into psw_db.appointment values(1, "2022-09-10 14:00:00", 2000, false, 0, "Family");
-insert into psw_db.appointment values(2, "2022-09-23 14:00:00", 2000, false, 0, "Family");
-insert into psw_db.appointment values(3, "2022-09-18 14:00:00", 2001, false, 0, "Specialist");
-insert into psw_db.appointment values(4, "2022-10-04 14:00:00", 2002, false, 0, "Family");
+insert into psw_db.appointment values(1, "2022-09-10 14:00:00", 2000, false, 0, false, "Family", false);
+insert into psw_db.appointment values(2, "2022-09-23 14:00:00", 2000, false, 0, false, "Family", false);
+insert into psw_db.appointment values(3, "2022-09-18 14:00:00", 2001, false, 0, false, "Specialist", false);
+insert into psw_db.appointment values(4, "2022-10-04 14:00:00", 2002, false, 0, false, "Family", false);
+insert into psw_db.appointment values(5, "2022-09-28 15:00:00", 2003, false, 0, false, "Specialist", false);
+insert into psw_db.appointment values(6, "2022-10-01 15:00:00", 2003, false, 0, false, "Specialist", false);
+insert into psw_db.appointment values(7, "2022-09-12 14:00:00", 2003, false, 0, false, "Specialist", false);
+insert into psw_db.appointment values(8, "2022-09-15 13:00:00", 2002, false, 0, false, "Family", false);
+insert into psw_db.appointment values(9, "2022-09-30 12:00:00", 2000, false, 0, false, "Family", false);
+insert into psw_db.appointment values(10, "2022-09-15 16:00:00", 2001, false, 0, false, "Specialist", false);
+insert into psw_db.appointment values(11, "2022-08-15 16:00:00", 2001, true, 1, true, "Family",false);
+
+
+insert into psw_db.clinicfeedback values(1, "Sve je dobro, strogo profesionalno", 8, false, "miljana@gmail.com", true);
+insert into psw_db.clinicfeedback values(2, "Sve je dobro, strogo profesionalno i dalje naravno", 8, false, "miljana@gmail.com", true);
+
+
+
